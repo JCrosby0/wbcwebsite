@@ -1,0 +1,53 @@
+{
+  "committee": [
+    {
+      "title": "Chairperson",
+      "name": "Daniel Coyne",
+      "phone": "0417 207 316",
+      "email": "president@wbc.asn.au",
+      "url": ""
+    },
+    {
+      "title": "Secretary",
+      "name": "TBA",
+      "phone": "",
+      "email": "secretary@wbc.asn.au",
+      "url": ""
+    },
+    {
+      "title": "Registrar",
+      "name": "TBA",
+      "phone": "",
+      "email": "registrar@wbc.asn.au",
+      "url": ""
+    },
+    {
+      "title": "Treasurer",
+      "name": "Brenton Cunning",
+      "phone": "0408 825 149",
+      "email": "treasurer@wbc.asn.au",
+      "url": ""
+    },
+    {
+      "title": "Baseball President",
+      "name": "Jason De Wind",
+      "phone": "0415 240 914",
+      "email": "baseball@wbc.asn.au",
+      "url": ""
+    },
+    {
+      "title": "Softball President",
+      "name": "Emily Watson",
+      "phone": "0409 881 717",
+      "email": "softball@wbc.asn.au",
+      "url": ""
+    },
+    {
+      "title": "Chairperson",
+      "name": "Joseph Crosby",
+      "phone": "0412 276 729",
+      "email": "teeball@wbc.asn.au",
+      "url": ""
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "menu": [
+    {
+      "type": "internal",
+      "display": "home",
+      "path": "/",
+      "hidden": true
+    },
+    {
+      "type": "external",
+      "display": "shop",
+      "path": "https://wbcwildcats.square.site",
+      "hidden": false
+    },
+    {
+      "type": "external",
+      "display": "register",
+      "path": "https://www.revolutionise.com.au/wbcwildcats/rego/",
+      "hidden": false
+    },
+    {
+      "type": "internal",
+      "display": "about",
+      "path": "/about",
+      "hidden": false
+    },
+    {
+      "type": "internal",
+      "display": "info",
+      "path": "/info",
+      "hidden": false
+    },
+    {
+      "type": "internal",
+      "display": "news",
+      "path": "/news",
+      "hidden": false
+    },
+    {
+      "type": "internal",
+      "display": "menu",
+      "path": "/",
+      "hidden": true
+    }
+  ]
+}

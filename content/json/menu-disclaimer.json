@@ -1,0 +1,22 @@
+{
+  "menu": [
+    {
+      "type": "internal",
+      "display": "Privacy",
+      "path": "/privacy",
+      "hidden": false
+    },
+    {
+      "type": "internal",
+      "display": "Legal",
+      "path": "/legal",
+      "hidden": false
+    },
+    {
+      "type": "internal",
+      "display": "Cookies",
+      "path": "/cookies",
+      "hidden": false
+    }
+  ]
+}
