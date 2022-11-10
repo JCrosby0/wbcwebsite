@@ -52,11 +52,16 @@ const heroImages = {
     img: require('@/public/img/wtcStates.jpg'),
   },
 }
+type layout = {
+  selectedDivision: string
+}
 export default Vue.extend({
   name: 'IndexPage',
   computed: {
     heroImage() {
-      const selection = this.$parent.$parent.selectedDivision
+      if (!this || !this.$parent || !this.$parent.$parent) return
+      const layout = this.$parent.$parent as unknown as layout
+      const selection = layout.selectedDivision
       const key = (selection as keyof typeof heroImages) || 'baseball'
       // const key = (this.selection as keyof typeof heroImages) || 'baseball'
       return heroImages[key].src
