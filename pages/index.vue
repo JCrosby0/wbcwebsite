@@ -8,8 +8,7 @@
     ></div>
     <div class="welcome | container section">
       <div class="heading">
-        <h1><i> Welcome to the home of the </i></h1>
-        <br />
+        <div><i> Welcome to the home of the </i></div>
         <img
           src="~/assets/img/willettonWildcats.png"
           alt="Willetton Wildcats"
@@ -109,6 +108,7 @@ h1 {
   flex: 0 0 20vh;
   margin: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

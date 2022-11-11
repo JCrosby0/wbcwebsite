@@ -28,16 +28,29 @@
         </li>
       </ul> -->
     </div>
-    <ul v-show="navLinks" class="menu">
-      <li v-for="item in navLinks" :key="item.display">
-        <NuxtLink v-if="item.type === 'internal'" :to="item.path">
-          {{ item.display }}
-        </NuxtLink>
-        <a v-if="item.type === 'external'" :href="item.path">{{
-          item.display
-        }}</a>
-      </li>
-    </ul>
+    <div class="menu-container">
+      <div
+        v-show="collapsedMenu"
+        class="menu-hamburger"
+        @click="handleMenuClick"
+      >
+        {{ showMenu ? '✕' : '☰' }}
+      </div>
+      <ul v-show="(!collapsedMenu && navLinks) || showMenu" class="menu">
+        <li v-for="item in navLinks" :key="item.display">
+          <NuxtLink
+            v-if="item.type === 'internal'"
+            :to="item.path"
+            @click="handleMenuClick"
+          >
+            {{ item.display }}
+          </NuxtLink>
+          <a v-if="item.type === 'external'" :href="item.path">{{
+            item.display
+          }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -57,6 +70,8 @@ export default {
       topOfPage: true,
       scrollThreshold: 100,
       wideScreen: true,
+      collapsedMenu: false,
+      showMenu: false,
       // themes: ['baseball', 'softball', 'tee-ball'],
     }
   },
@@ -78,8 +93,12 @@ export default {
     document.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    handleMenuClick() {
+      this.showMenu = !this.showMenu
+    },
     handleResize() {
       this.wideScreen = window.innerWidth > 800
+      this.collapsedMenu = window.innerWidth <= 400
     },
     handleScroll() {
       const scrollThreshold = 100
@@ -110,18 +129,33 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: calc(60px + 1em);
+  height: var(--header-height);
   border-bottom: 2px solid;
   border-bottom-color: var(--bottleGreen);
-  background-color: hsl(90, 50%, 85%);
+  background-color: var(--green-100);
 }
 .navbar > * {
   flex: 0 0 33%;
 }
+.menu-container {
+  /* position: absolute; */
+  height: var(--header-height);
+  /* top: 0; */
+  /* right: 0; */
+}
+.menu-hamburger {
+  font-size: 24px;
+  text-align: right;
+  margin-right: 1em;
+  margin-block: calc((60px - 24px) / 2);
+  cursor: pointer;
+}
 .menu {
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: right;
+  align-items: center;
 }
 .menu > li {
   padding-right: 1em;
@@ -179,6 +213,33 @@ export default {
 @media screen and (max-width: 800px) {
   .logo-container {
     display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .menu-container {
+    position: absolute;
+    height: var(--header-height);
+    top: 0;
+    right: 0;
+  }
+  .menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: var(--header-height);
+    flex-direction: column;
+    border-color: var(--bottleGreen);
+    box-sizing: border-box;
+    border: 2px solid;
+    border-top: 0px;
+    height: unset;
+  }
+  .menu > li {
+    padding-right: 1em;
+    background: var(--green-100);
+    padding: 0.5em 1em;
+    width: 100%;
   }
 }
 </style>

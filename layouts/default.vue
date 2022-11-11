@@ -59,6 +59,7 @@ export default Vue.extend({
 :root {
   --bottle-green: hsl(150, 77%, 14%);
   --gold: hsl(50, 100%, 51%);
+  --green-100: hsl(90, 50%, 85%);
   --header-height: 76px;
   --footer-height: 191px;
   font-family: 'Open Sans', 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
