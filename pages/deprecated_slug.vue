@@ -19,7 +19,7 @@ export default {
     const slug = params.slug
     let articles
     if (categories.includes(params.slug)) {
-      articles = await $content(`/${params.slug}`).fetch()
+      articles = await $content(`${params.slug}`).fetch()
     }
     console.log(params.slug)
     const pageTitle = categories.includes(params.slug)

@@ -39,7 +39,7 @@ export default {
       // article = await $content(`/${params.category}/${params.slug}`).fetch()
       // console.log('We are in pages category slug article')
     } else if (categories.includes(params.category)) {
-      articles = await $content(`/${params.category}`).fetch()
+      articles = await $content(`${params.category}`).fetch()
       articles = articles.filter((article) => article.published)
       articles.forEach((article) => {
         article.img = require(`~/assets/img/${article.image}`)
@@ -54,7 +54,7 @@ export default {
       : 'articles'
     /// //////////////////////////////////
     if (categories.includes(params.slug)) {
-      articles = await $content(`/${params.slug}`).fetch()
+      articles = await $content(`${params.slug}`).fetch()
     }
 
     return { article, articles, pageTitle, category, slug }

@@ -33,10 +33,10 @@ export default {
     const slug = params.slug
     const category = params.category
     if (params.category && params.slug) {
-      article = await $content(`/${params.category}/${params.slug}`).fetch()
+      article = await $content(`${params.category}/${params.slug}`).fetch()
       console.log('We are in pages category slug article')
     } else if (categories.includes(params.category)) {
-      articles = await $content(`/${params.category}`).fetch()
+      articles = await $content(`${params.category}`).fetch()
       console.log('We are in pages category slug articles')
     } else {
       articles = []
@@ -46,7 +46,7 @@ export default {
       : 'articles'
     /// //////////////////////////////////
     if (categories.includes(params.slug)) {
-      articles = await $content(`/${params.slug}`).fetch()
+      articles = await $content(`${params.slug}`).fetch()
     }
 
     return { article, articles, pageTitle, category, slug }

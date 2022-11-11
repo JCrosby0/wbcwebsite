@@ -69,9 +69,9 @@ export default {
     },
   },
   async mounted() {
-    const menuJSON = await this.$content('/json/menu-nav').fetch()
-    const smJSON = await this.$content('/json/menu-social-media').fetch()
-    const discJSON = await this.$content('/json/menu-disclaimer').fetch()
+    const menuJSON = await this.$content('json/menu-nav').fetch()
+    const smJSON = await this.$content('json/menu-social-media').fetch()
+    const discJSON = await this.$content('json/menu-disclaimer').fetch()
     this.navLinks = menuJSON.menu.filter((link) => !link.hidden)
     this.smLinks = smJSON.links.filter((link) => !link.hidden)
     this.discLinks = discJSON.menu.filter((link) => !link.hidden)

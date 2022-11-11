@@ -13,7 +13,7 @@ export default {
     }
   },
   async mounted() {
-    const committeeJSON = await this.$content('/json/committee').fetch()
+    const committeeJSON = await this.$content('json/committee').fetch()
     this.committeeList = committeeJSON.committee
   },
 }
