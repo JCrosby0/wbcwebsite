@@ -1,6 +1,6 @@
 ---
 title: Life Members
-description: Any member of the club who has rendered specially meritorious direct service to the club may be elected as a Life Member.
+description: Members recognised for meritorious service to the club.
 published: true
 image: wbcLifeMembers.jpg
 ---

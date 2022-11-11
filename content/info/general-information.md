@@ -1,6 +1,6 @@
 ---
 title: General Information
-description: General information about the Willetton Baseball Club and it's home ground.
+description: About the Willetton Baseball Club and it's home ground.
 published: true
 image: wbcDiamondLayout.jpg
 ---

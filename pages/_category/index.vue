@@ -80,21 +80,21 @@ h2 {
 }
 .article-list {
   padding: 2rem;
-  width: 800px;
+  max-width: 800px;
   margin: auto;
 }
 ul {
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
 }
 li {
   padding: 1rem;
   border: 1px var(--bottle-green) solid;
   border-radius: 0.5em;
-  max-width: calc(50% - 1em);
-  width: calc(50% - 1em);
+  width: clamp(300px, 40%, calc(50%-1em));
   min-height: 400px;
   display: flex;
   flex-direction: column;

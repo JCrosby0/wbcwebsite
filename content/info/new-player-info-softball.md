@@ -1,5 +1,5 @@
 ---
-title: New Player Information - Softball
+title: New Player Info - Softball
 description: 'General information about Softball at Willetton.'
 published: true
 image: wscPitcher2.jpg

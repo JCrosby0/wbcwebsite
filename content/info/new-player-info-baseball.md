@@ -1,5 +1,5 @@
 ---
-title: New Player Information - Baseball
+title: New Player Info - Baseball
 description: 'General information about Baseball at Willetton.'
 published: true
 image: wbcPitcher.jpg
@@ -36,4 +36,4 @@ Senior League players are also eligible to tryout for the Perth Metro Central �
 ## Adult Baseball
 
 For males and females 16+. Willetton currently has 7 teams in the Baseball WA Senior Metro Competitions. Games are played on Sunday’s at varying times, depending on the division. We have teams in A to F grades as well as a Women’s side.
-Training is held on Thursday night (Club Night) with some additional sessions held on Tuesday evenings at Willetton Park.\*\*
+Training is held on Thursday night (Club Night) with some additional sessions held on Tuesday evenings at Willetton Park.

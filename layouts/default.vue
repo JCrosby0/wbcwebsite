@@ -93,8 +93,4 @@ body,
   position: sticky;
   top: 0;
 }
-/* main {
-  width: 800px;
-  margin: auto;
-} */
 </style>

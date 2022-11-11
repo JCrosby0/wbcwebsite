@@ -8,9 +8,13 @@
     ></div>
     <div class="welcome | container section">
       <div class="heading">
-        <h1>
-          Welcome to the home of the <br /><span class="wbc">WBC Wildcats</span>
-        </h1>
+        <h1><i> Welcome to the home of the </i></h1>
+        <br />
+        <img
+          src="~/assets/img/willettonWildcats.png"
+          alt="Willetton Wildcats"
+          class="ww-logo"
+        />
       </div>
       <div class="body">
         <p class="text-lg">
@@ -72,7 +76,7 @@ export default Vue.extend({
 
 <style scoped>
 .container {
-  width: 800px;
+  max-width: 800px;
   margin: auto;
   /* background-color: #ddd; */
   /* min-height: 100%; */
@@ -114,5 +118,8 @@ h1 {
 .wbc {
   color: var(--bottle-green);
   font-weight: bold;
+}
+.ww-logo {
+  padding-bottom: 1em;
 }
 </style>

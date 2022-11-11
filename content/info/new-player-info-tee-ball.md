@@ -1,5 +1,5 @@
 ---
-title: New Player Information - Tee-ball
+title: New Player Info - Tee-ball
 description: 'General information about Tee-ball at Willetton.'
 published: true
 image: wtcThrow.jpg
