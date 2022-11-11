@@ -12,4 +12,4 @@ The Willetton Baseball Club (Inc) are known as the WBC Wildcats and are one of t
 WBC Wildcats home ground is Willetton Park which is located on Apsley Rd in Willetton.
 A diamond layout is below. This layout applies to junior baseball & tee-ball.
 
-![Willetton Reserve Diamond Layout](/_nuxt/public/img/wbcDiamondLayout.jpg)
+![Willetton Reserve Diamond Layout](wbcDiamondLayout.jpg)

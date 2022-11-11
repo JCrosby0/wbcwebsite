@@ -7,7 +7,7 @@
           v-for="article in articles"
           :key="article.slug"
           :style="{
-            '--url': `url('_nuxt/public/img/${article.image}')`,
+            '--url': `url('${article.img}')`,
           }"
         >
           <h2>{{ article.title }}</h2>
@@ -35,12 +35,15 @@ export default {
     const slug = params.slug
     const category = params.category
     if (params.category && params.slug) {
-      article = await $content(`/${params.category}/${params.slug}`).fetch()
-      console.log('We are in pages category slug article')
-      require(`@/public/img/${article.image}`)
+      // this should be covered by _slug.vue
+      // article = await $content(`/${params.category}/${params.slug}`).fetch()
+      // console.log('We are in pages category slug article')
     } else if (categories.includes(params.category)) {
       articles = await $content(`/${params.category}`).fetch()
       articles = articles.filter((article) => article.published)
+      articles.forEach((article) => {
+        article.img = require(`~/assets/img/${article.image}`)
+      })
       console.log('We are in pages category slug articles')
     } else {
       articles = []

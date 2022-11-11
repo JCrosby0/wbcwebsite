@@ -5,21 +5,21 @@
 
       <div class="image-container">
         <img
-          src="@/public/img/willetton_bc_wordmark_baseball.png"
+          src="~/assets/img/willetton_bc_wordmark_baseball.png"
           alt="Willetton Baseball Logo"
           width="100px"
           :style="{ selected: selection === 'baseball' }"
           @click="makeSelection('baseball')"
         />
         <img
-          src="@/public/img/willetton_bc_wordmark_softball.png"
+          src="~/assets/img/willetton_bc_wordmark_softball.png"
           alt="Willetton
           Softball Logo"
           width="100px"
           :style="{ selected: selection === 'softball' }"
           @click="makeSelection('softball')"
         /><img
-          src="@/public/img/willetton_bc_wordmark_teeball.png"
+          src="~/assets/img/willetton_bc_wordmark_teeball.png"
           alt="Willetton
           Tee-ball Logo"
           width="100px"

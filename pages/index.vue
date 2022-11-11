@@ -3,7 +3,7 @@
     <div
       class="hero"
       :style="{
-        '--url': `url('_nuxt/${heroImage}')`,
+        '--url': `url('${heroImage}')`,
       }"
     ></div>
     <div class="welcome | container section">
@@ -40,16 +40,16 @@ import Vue from 'vue'
 
 const heroImages = {
   baseball: {
-    src: '/public/img/wbc1819Premiers.jpg',
-    img: require('@/public/img/wbc1819Premiers.jpg'),
+    src: '~/assets/img/wbc1819Premiers.jpg',
+    img: require('~/assets/img/wbc1819Premiers.jpg'),
   },
   softball: {
-    src: '/public/img/wscTeamPhoto.jpg',
-    img: require('@/public/img/wscTeamPhoto.jpg'),
+    src: '~/assets/img/wscTeamPhoto.jpg',
+    img: require('~/assets/img/wscTeamPhoto.jpg'),
   },
   teeball: {
-    src: '/public/img/wtcStates.jpg',
-    img: require('@/public/img/wtcStates.jpg'),
+    src: '~/assets/img/wtcStates.jpg',
+    img: require('~/assets/img/wtcStates.jpg'),
   },
 }
 type layout = {
@@ -64,7 +64,7 @@ export default Vue.extend({
       const selection = layout.selectedDivision
       const key = (selection as keyof typeof heroImages) || 'baseball'
       // const key = (this.selection as keyof typeof heroImages) || 'baseball'
-      return heroImages[key].src
+      return heroImages[key].img
     },
   },
 })
@@ -83,7 +83,7 @@ export default Vue.extend({
   --fold-height: 20vh;
   height: calc(100vh - var(--header-height) - var(--fold-height));
   width: 100%;
-  background-image: url(@/public/img/wtcStates.jpg);
+  background-image: url(assets/img/wtcStates.jpg);
   background-image: var(--url);
   background-size: cover;
   background-position: center;

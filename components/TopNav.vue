@@ -4,7 +4,7 @@
     <div id="roundel-container">
       <NuxtLink to="/">
         <img
-          src="@/public/img/willetton_bc_roundel.png"
+          src="~/assets/img/willetton_bc_roundel.png"
           :class="{
             roundel: true,
             'roundel-large': topOfPage && wideScreen,
