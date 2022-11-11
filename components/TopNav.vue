@@ -70,7 +70,7 @@ export default {
       topOfPage: true,
       scrollThreshold: 100,
       wideScreen: true,
-      collapsedMenu: false,
+      collapsedMenu: true,
       showMenu: false,
       // themes: ['baseball', 'softball', 'tee-ball'],
     }
