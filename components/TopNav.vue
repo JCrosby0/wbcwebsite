@@ -82,7 +82,6 @@ export default {
   },
   async mounted() {
     const menuJSON = await this.$content('json/menu-nav').fetch()
-    console.log('menuJSON: ', menuJSON)
     this.navLinks = menuJSON.menu.filter((link) => !link.hidden)
     document.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
