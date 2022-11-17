@@ -30,183 +30,179 @@
 
 // connect to FB API
 const fbAccessConfig = {
-  appID: '450442840363350', // WBC Wildcats by ib.jaycee
+  appID: process.env.FB_APP_ID, // WBC Wildcats by ib.jaycee
   userID: '', // Joe Crosby
-  pageID: '235493236635117', // WBC Wildcats
+  pageID: process.env.FB_PAGE_ID, // WBC Wildcats
   credentialsPassword: '',
   accessToken: '',
   page_access_token: '',
-  pageName: 'WBC Wildcats',
+  pageName: process.env.FB_PAGE_NAME,
+  appAccessToken: process.env.FB_APP_ACCESS_TOKEN,
 }
 const fbInitConfig = {
-  appId: 450442840363350,
-  // access_token: '',
+  appId: process.env.FB_APP_ID,
+  access_token: process.env.FB_APP_ACCESS_TOKEN,
   autoLogAppEvents: true,
   status: true,
   xfbml: false,
   version: 'v15.0',
 }
-const FBInitFunction = async (context) => {
-  const FB = window.FB
+// get page data for the user
+function getUserPageData(config) {
+  return new Promise((resolve, reject) => {
+    FB.api(
+      `/${config.userID}/accounts/?access_token=${config.accessToken}`,
+      'GET',
+      (response) => {
+        if (!response.data || response.data.length === 0) {
+          reject(new Error('no data'))
+        }
+        const wbc = response.data.find((d) => d.id === config.pageID)
+        if (!wbc) reject(new Error('insufficient data returned'))
+        fbAccessConfig.page_access_token = wbc.access_token
+        fbAccessConfig.pageID = wbc.id
+        resolve(response)
+      }
+    )
+  })
+}
 
-  // function: check's for login status, specifically access token, if not present, logs in to generate one.
-  async function doLogin() {
-    let response
-    await FB.getLoginStatus((statusResponse) => {
-      console.log('  statusResponse : ', statusResponse)
-      if (statusResponse.status === 'connected') {
-        response = statusResponse
+// get a page token -- we already get this as part of get UserPage Data
+// function getPageToken() {
+//   return new Promise((resolve, reject) => {
+//     let token = ''
+//     FB.api(`/${fbAccessConfig.pageID}`, 'GET', (response) => {
+//       console.log('  response to page token request', response)
+//       if (!response.access_token) reject(new Error('no token'))
+//       token = response.access_token
+//       resolve(token)
+//     })
+//   })
+// }
+
+// FB API call: getPageFeed()
+function getPageFeed(config) {
+  return new Promise((resolve, reject) => {
+    FB.api(
+      `/${config.pageID}/feed`,
+      'GET',
+      { access_token: config.page_access_token },
+      (response) => {
+        if (!response.data || response.data.length === 0) {
+          reject(new Error('no feed data'))
+        }
+        resolve(response)
+      }
+    )
+  })
+}
+// FB API call: getPost(postID)
+function getPost(config, postID) {
+  return new Promise((resolve, reject) => {
+    FB.api(
+      `/${postID}`,
+      'GET',
+      { access_token: config.page_access_token },
+      (responsePost) => {
+        if (responsePost) {
+          resolve(responsePost)
+        } else {
+          reject(new Error('invalid post response'))
+        }
+      }
+    )
+  })
+}
+// FB API call: getPostAttachments(postID)
+function getPostAttachments(config, postID) {
+  return new Promise((resolve, reject) => {
+    FB.api(
+      `/${postID}/attachments`,
+      'GET',
+      { access_token: config.page_access_token },
+      (responsePostAttachments) => {
+        if (responsePostAttachments) {
+          resolve(responsePostAttachments)
+        } else {
+          reject(new Error('invalid attachments'))
+        }
+      }
+    )
+  })
+}
+// FB API call: getLoginStatus()
+function getLoginStatus() {
+  return new Promise((resolve, reject) => {
+    FB.getLoginStatus((response) => {
+      if (response.status === 'connected') {
+        resolve(response)
+      } else {
+        reject(new Error('not connected'))
       }
     })
-    // don't try to log in if we're already connected
-    if (response === undefined) {
-      await FB.login((loginResponse) => {
-        if (loginResponse.authResponse !== null) {
-          console.log('  loginResponse: ', loginResponse)
-          response = loginResponse
-
-          // do the rest of the stuff in here?
-        }
-      })
-    }
-    console.log('  response: ', response)
-    setCredentials(response)
-    return response
-  }
-
-  // helper function to set the credentials in a local object from the auth response
-  const setCredentials = (response) => {
-    if (!response || !response.authResponse) {
-      console.log('  no credentials received')
-      return
-    }
-    console.log('  Credentials received, setting: ', response)
-    const authResponse = response.authResponse
-    fbAccessConfig.accessToken = authResponse.accessToken
-    fbAccessConfig.userID = authResponse.userID
-    console.log('  fbAccessConfig: ', fbAccessConfig)
-  }
-
-  // get page data for the user
-  function getUserPageData() {
-    return new Promise((resolve, reject) => {
-      console.log('  getting page data for the user')
-      FB.api(
-        `/${fbAccessConfig.userID}/accounts/?access_token=${fbAccessConfig.accessToken}`,
-        'GET',
-        (response) => {
-          console.log('  response to Page Access token request', response)
-          if (!response.data || response.data.length === 0) {
-            reject(new Error('no data'))
-          }
-          const wbc = response.data.find(
-            (d) => d.name === fbAccessConfig.pageName
-          )
-          fbAccessConfig.page_access_token = wbc.access_token
-          fbAccessConfig.pageID = wbc.id
-          resolve(response)
-        }
-      )
+  })
+}
+// FB API call: login
+function fbLogin() {
+  return new Promise((resolve, reject) => {
+    FB.login((response) => {
+      if (response.authResponse !== null) {
+        resolve(response)
+      } else {
+        reject(new Error('user abandonded login'))
+      }
     })
+  })
+}
+// function: check's for login status, specifically access token, if not present, logs in to generate one.
+async function doLogin() {
+  const response = await getLoginStatus()
+    .then((result) => {
+      // response = result
+      return result
+    })
+    .catch(() => {
+      // not connected, login
+      return fbLogin()
+    })
+    .then((result) => {
+      // response = result
+      console.log('logged in', result)
+      return result
+    })
+  console.log('  response before set Credentials: ', response)
+  setCredentials(response)
+  return response
+}
+const setCredentials = (response) => {
+  if (!response || !response.authResponse) {
+    console.log('  no credentials received')
+    return
   }
+  console.log('  Credentials received, setting: ', response)
+  const authResponse = response.authResponse
+  fbAccessConfig.accessToken = authResponse.accessToken
+  fbAccessConfig.userID = authResponse.userID
+}
 
-  // get a page token -- we already get this as part of get UserPage Data
-  // function getPageToken() {
-  //   return new Promise((resolve, reject) => {
-  //     let token = ''
-  //     FB.api(`/${fbAccessConfig.pageID}`, 'GET', (response) => {
-  //       console.log('  response to page token request', response)
-  //       if (!response.access_token) reject(new Error('no token'))
-  //       token = response.access_token
-  //       resolve(token)
-  //     })
-  //   })
-  // }
-
-  // get page feed
-  function getPageFeed() {
-    return new Promise((resolve, reject) => {
-      FB.api(
-        `/${fbAccessConfig.pageID}/feed`,
-        'GET',
-        { access_token: fbAccessConfig.page_access_token },
-        (response) => {
-          console.log('  response to feed request: ', response)
-          if (!response.data || response.data.length === 0) {
-            reject(new Error('no feed data'))
-          }
-          resolve(response)
-        }
-      )
-    })
-  }
-  function getPost(postID) {
-    return new Promise((resolve, reject) => {
-      FB.api(
-        `/${postID}`,
-        'GET',
-        { access_token: fbAccessConfig.page_access_token },
-        (responsePost) => {
-          console.log('  response to page_post request: ', responsePost)
-          resolve(responsePost)
-        }
-      )
-    })
-  }
-  function getPostAttachments(postID) {
-    return new Promise((resolve, reject) => {
-      FB.api(
-        `/${postID}/attachments`,
-        'GET',
-        { access_token: fbAccessConfig.page_access_token },
-        (responsePostAttachments) => {
-          console.log(
-            '  response to page_post_attachments request: ',
-            responsePostAttachments
-          )
-          resolve(responsePostAttachments)
-        }
-      )
-    })
-  }
+async function doRoutine(context) {
+  // needs to be first
+  await doLogin()
+  await getUserPageData(fbAccessConfig)
+  // const pageToken = await getPageToken()
+  const pageFeed = await getPageFeed(fbAccessConfig)
+  const index = 0
+  const postID = pageFeed.data[index].id
+  const pageFirstPost = await getPost(fbAccessConfig, postID)
+  const postAttachments = await getPostAttachments(fbAccessConfig, postID)
+  context.post = pageFirstPost
+  context.attachments = postAttachments
+  return [pageFirstPost, postAttachments]
+}
+const FBInitFunction = async (context = this.content) => {
+  const FB = window.FB
   await FB.init(fbInitConfig)
-  // wrap everything in an async function
-  async function doRoutine() {
-    // needs to be first
-    console.log('[1] Logging in')
-    console.groupCollapsed('login')
-    const loginResult = await doLogin()
-    console.groupEnd()
-    console.log('loginResult: ', loginResult)
-    console.log('[2] Retrieving User Page Data')
-    console.groupCollapsed('userPageData')
-    const userPageData = await getUserPageData()
-    console.groupEnd()
-    console.log('userPageData: ', userPageData)
-    // console.log('[3]: Getting page token')
-    // const pageToken = await getPageToken()
-    // console.log('pageToken: ', pageToken)
-    console.log('[4]: Getting page feed')
-    console.groupCollapsed('feed')
-    const pageFeed = await getPageFeed()
-    console.groupEnd()
-    console.log('pageFeed: ', pageFeed)
-    console.log('[5]: Getting first post')
-    console.groupCollapsed('post')
-    const index = 0
-    const postID = pageFeed.data[index].id
-    const pageFirstPost = await getPost(postID)
-    const postAttachments = await getPostAttachments(postID)
-    console.groupEnd()
-    console.log('pageFirstPost: ', pageFirstPost)
-    console.log('postAttachments: ', postAttachments)
-    context.post = pageFirstPost
-    context.attachments = postAttachments
-    return [pageFirstPost, postAttachments]
-  }
-  // BEGIN FUNCTION CALLS
-
-  return await doRoutine()
+  return await doRoutine(context)
 }
 
 // will execute once the sdk is loaded
@@ -214,8 +210,10 @@ const FBInitFunction = async (context) => {
 export default {
   data() {
     return {
-      post: {},
-      attachments: {},
+      content: {
+        post: {},
+        attachments: {},
+      },
     }
   },
   head() {
@@ -232,21 +230,21 @@ export default {
   },
   computed: {
     postMessage() {
-      if (!this.post) return ''
-      return this.post.message
+      if (!this.content.post) return ''
+      return this.content.post.message
     },
     postImages() {
-      if (!this.attachments.data) {
+      if (!this.content.attachments.data) {
         return []
       }
       const images = []
-      const mainImage = this.attachments.data[0].media.image
+      const mainImage = this.content.attachments.data[0].media.image
       images.push({
         src: mainImage.src,
         height: mainImage.height,
         width: mainImage.width,
       })
-      this.attachments.data[0].subattachments.data.forEach((img) => {
+      this.content.attachments.data[0].subattachments.data.forEach((img) => {
         images.push({
           src: img.media.image.src,
           height: img.media.image.height,
@@ -257,14 +255,11 @@ export default {
     },
   },
   mounted() {
-    window.fbAsyncInit = FBInitFunction(this)
+    window.fbAsyncInit = FBInitFunction(this.content)
   },
   methods: {
     async handleButtonClick() {
-      let posts, attachments
-      ;[posts, attachments] = await FBInitFunction()
-      this.post = posts
-      this.attachments = attachments
+      await FBInitFunction(this.content)
     },
   },
 }
