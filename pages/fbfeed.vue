@@ -255,6 +255,7 @@ export default {
     },
   },
   mounted() {
+    window.FB.init(fbInitConfig)
     window.fbAsyncInit = FBInitFunction(this.content)
   },
   methods: {
