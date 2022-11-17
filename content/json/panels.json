@@ -1,0 +1,36 @@
+{
+  "panels": [
+    {
+      "title": "Results",
+      "description": "Last week's results",
+      "url": "results.jpg",
+      "path": "/results",
+      "type": "internal",
+      "hidden": false
+    },
+    {
+      "title": "Fixtures",
+      "description": "This week's fixtures",
+      "url": "fixtures.jpg",
+      "path": "/fixtures",
+      "type": "internal",
+      "hidden": false
+    },
+    {
+      "title": "Merch",
+      "description": "Look good",
+      "url": "merch.jpg",
+      "path": "https://idathleticshop.com/product-category/diamond-sports/willetton-baseball/",
+      "type": "external",
+      "hidden": false
+    },
+    {
+      "title": "Dinner",
+      "description": "See you thursday night",
+      "url": "dinner.jpg",
+      "path": "/dinner",
+      "type": "internal",
+      "hidden": false
+    }
+  ]
+}

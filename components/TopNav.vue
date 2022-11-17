@@ -85,7 +85,9 @@ export default {
     this.navLinks = menuJSON.menu.filter((link) => !link.hidden)
     document.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
-    this.wideScreen = window.innerWidth > 800
+    this.handleScroll()
+    this.handleResize()
+    // this.wideScreen = window.innerWidth > 800
   },
   destroyed() {
     document.removeEventListener('scroll', this.handleScroll)

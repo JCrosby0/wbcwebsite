@@ -95,7 +95,11 @@ const FBInitFunction = async () => {
         'GET',
         { access_token: fbAccessConfig.appAccessToken },
         (response) => {
-          resolve(response)
+          if (response) {
+            resolve(response)
+          } else {
+            reject(new Error('no response'))
+          }
         }
       )
     })
