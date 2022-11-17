@@ -92,4 +92,5 @@ sw.*
 # server stuff
 crosby.solutions.*
 myCA.*
-localhost.*
+localhost.csr
+localhost.ext
